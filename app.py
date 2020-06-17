@@ -2,11 +2,10 @@ import os
 from flask import Flask, request
 from flask_cors import CORS, cross_origin
 import json
-import time
 from server.predict_model import Model
 
 app = Flask(__name__)
-cors = CORS(app)
+cors = CORS(app, resources={r"/foo": {"origins": "http://localhost:8080"}})
 app.config['CORS_HEADERS'] = 'Content-Type'
 model = None
 
@@ -21,13 +20,20 @@ def hello():
 @cross_origin()
 def predict():
     post_data = request.data.decode("utf-8")
-    data = json.load(post_data)
-    
-    start = time.time()
-    res = model.predict(data)
-    end = time.time()
+    data = json.loads(post_data)
 
-    return {"response": "Chino pto", "probability": 100}
+    for key in data:
+        data[key] = float(data[key])
+
+    print(data)
+
+    res = model.predict(data)
+    message = "El paciente no sufrirá de un ataque al corazón"
+
+    if res:
+        message = "El paciente puede sufrir de un ataque al corazón"
+
+    return {"response": message, "probability": model.mean}
 
 
 if __name__ == "__main__":

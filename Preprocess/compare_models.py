@@ -47,7 +47,7 @@ def standardize_data(x):
 
 
 # First we read the dataframe to use
-data = read_csv('server/data.csv', na_values=['?', ''])
+data = read_csv('data.csv', na_values=['?', ''])
 data = handle_missing(data)
 
 # Get column names

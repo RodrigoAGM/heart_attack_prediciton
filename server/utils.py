@@ -1,5 +1,4 @@
 from pandas import read_csv, DataFrame
-from sklearn.preprocessing import StandardScaler, MinMaxScaler
 from sklearn.neural_network import MLPClassifier
 import numpy as np
 
@@ -30,13 +29,3 @@ def handle_missing(dataframe):
     print(dataframe.isna().sum())
 
     return dataframe
-
-
-def normalize_data(x):
-    normalization = MinMaxScaler().fit_transform(X=x)
-    return DataFrame(data=normalization, columns=x.columns)
-
-
-def standardize_data(x):
-    standarization = StandardScaler().fit_transform(X=x)
-    return DataFrame(data=standarization, columns=x.columns)

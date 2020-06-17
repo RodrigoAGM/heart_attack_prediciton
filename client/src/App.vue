@@ -140,17 +140,17 @@ export default {
         age: this.age,
         sex: this.optionsSex[this.selectedSex].value,
         cp: this.optionsChestPainType[this.selectedChestPain].value,
-        trestbps: this.trestbps,
-        chol: this.chol,
+        trestbps: Number(this.trestbps),
+        chol: Number(this.chol),
         fbs: this.optionsFbs[this.selectedFbs].value,
         restecg: this.optionsElectro[this.selectedElectro].value,
-        thalach: this.thalach,
+        thalach: Number(this.thalach),
         exang: this.optionsExercise[this.selectedExercise].value,
-        oldpeak: this.oldpeak
+        oldpeak: Number(this.oldpeak)
       };
       axios({
         method: "POST",
-        url: " http://localhost:5000/prediction",
+        url: " http://localhost:5000/predict",
         data: data
       }).then(
         result => {
