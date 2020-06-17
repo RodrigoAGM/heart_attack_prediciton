@@ -3,7 +3,8 @@
     <b-modal id="bv-modal-heart-attack" hide-footer>
       <template v-slot:modal-title>Heart attack prediction result</template>
       <div class="d-block text-center">
-        <h3>RESULTADO XD</h3>
+        <h3>{{result}}</h3>
+        <h5>{{probability}}%</h5>
       </div>
       <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')">Close Me</b-button>
     </b-modal>
@@ -91,10 +92,13 @@
 </template>
 
 <script>
+import axios from "axios";
 export default {
   name: "App",
   data() {
     return {
+      result: "NO RESULT",
+      probability: 92.5,
       selectedSex: 0,
       optionsSex: [
         { text: "Femenino", value: 0 },
@@ -144,8 +148,21 @@ export default {
         exang: this.optionsExercise[this.selectedExercise].value,
         oldpeak: this.oldpeak
       };
-      this.$bvModal.show("bv-modal-example");
-      console.log(data);
+      axios({
+        method: "POST",
+        url: " http://localhost:5000/prediction",
+        data: data
+      }).then(
+        result => {
+          console.log(result);
+          // TODO: set the result response into result and probability variable
+          this.$bvModal.show("bv-modal-example");
+          this.results = result.data;
+        },
+        error => {
+          console.error(error);
+        }
+      );
     }
   }
 };
