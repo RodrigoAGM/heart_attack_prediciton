@@ -120,7 +120,7 @@ export default {
         { text: "Angina típica", value: 1 },
         { text: "Angina atípica", value: 2 },
         { text: "No hay dolor", value: 3 },
-        { text: "Asintomático", value: 4 }
+        { text: "Asintomatico", value: 4 }
       ],
       selectedExercise: 0,
       optionsExercise: [
@@ -139,7 +139,7 @@ export default {
       var data = {
         age: this.age,
         sex: this.optionsSex[this.selectedSex].value,
-        cp: this.optionsChestPainType[this.selectedChestPain].value,
+        cp: this.optionsChestPainType[this.selectedChestPain - 1].value,
         trestbps: Number(this.trestbps),
         chol: Number(this.chol),
         fbs: this.optionsFbs[this.selectedFbs].value,
