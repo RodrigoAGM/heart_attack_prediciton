@@ -4,9 +4,9 @@
       <template v-slot:modal-title>Heart attack prediction result</template>
       <div class="d-block text-center">
         <h3>{{result}}</h3>
-        <h5>{{probability}}%</h5>
+        <h5>Porcentaje de precision: {{accuracy}}%</h5>
       </div>
-      <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-example')">Close Me</b-button>
+      <b-button class="mt-3" block @click="$bvModal.hide('bv-modal-heart-attack')">Ok</b-button>
     </b-modal>
     <div class="container">
       <h1>SI404: Predicción de ataque al corazón</h1>
@@ -98,7 +98,7 @@ export default {
   data() {
     return {
       result: "NO RESULT",
-      probability: 92.5,
+      accuracy: 0,
       selectedSex: 0,
       optionsSex: [
         { text: "Femenino", value: 0 },
@@ -155,8 +155,9 @@ export default {
       }).then(
         result => {
           console.log(result);
-          // TODO: set the result response into result and probability variable
-          this.$bvModal.show("bv-modal-example");
+          this.result = result.data.response;
+          this.accuracy = result.data.accuracy;
+          this.$bvModal.show("bv-modal-heart-attack");
           this.results = result.data;
         },
         error => {
