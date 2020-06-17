@@ -33,7 +33,7 @@ def predict():
     if res:
         message = "El paciente puede sufrir de un ataque al corazón"
 
-    return {"response": message, "probability": model.mean}
+    return {"response": message, "accuracy": "%0.2f" % (model.mean * 100)}
 
 
 if __name__ == "__main__":

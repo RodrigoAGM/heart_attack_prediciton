@@ -32,7 +32,7 @@ class Model:
         
         k = 10
         kfold = KFold(n_splits=k)
-        scores = cross_val_score(self.model, X_train, Y_train, cv=kfold, scoring='f1_macro')
+        scores = cross_val_score(self.model, X_train, Y_train, cv=kfold, scoring='accuracy')
         self.mean = np.mean(scores)
 
         self.model.fit(X_train, Y_train)
