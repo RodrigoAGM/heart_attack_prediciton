@@ -19,6 +19,7 @@ def hello():
 @app.route('/predict', methods=['POST'])
 @cross_origin()
 def predict():
+    model = Model()
     post_data = request.data.decode("utf-8")
     data = json.loads(post_data)
 
@@ -29,13 +30,12 @@ def predict():
 
     res = model.predict(data)
     message = "El paciente no sufrirá de un ataque al corazón"
-
-    if res:
+    print(res)
+    if res == 1:
         message = "El paciente puede sufrir de un ataque al corazón"
 
     return {"response": message, "accuracy": "%0.2f" % (model.mean * 100)}
 
 
 if __name__ == "__main__":
-    model = Model()
     app.run(host='localhost')
